@@ -20,7 +20,7 @@ This Method will now be available inside of your components e.g.
 methods: {
 	handleEvent: function (event) {
 	  event.preventDefault()
-	  this.myMethod()
+	  this.$myMethod()
 	}
 }
 ```
