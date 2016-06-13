@@ -1,4 +1,4 @@
-export default function (Vue, methods) {
+module.exports = function (Vue, methods) {
   // override init and inject vuex init procedure
   const _init = Vue.prototype._init
   Vue.prototype._init = function (options = {}) {
@@ -13,7 +13,13 @@ export default function (Vue, methods) {
     Object.keys(methods).forEach(key => {
       const methodName = key
       const method = methods[key]
-      this[methodName] = method
+      const options = this.$options
+
+      if (options.parent && options.parent[methodName]) {
+        this[methodName] = options.parent[methodName]
+      } else {
+        this[key] = method
+      }
     })
   }
 }

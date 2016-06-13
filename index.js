@@ -1,5 +1,4 @@
-import override from './override'
-
+const override = require('./override');
 let Vue
 
 function install (_Vue, methods) {
@@ -7,6 +6,6 @@ function install (_Vue, methods) {
   override(Vue, methods)
 }
 
-export default {
+module.exports = {
   install
 }
