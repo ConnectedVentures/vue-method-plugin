@@ -1,7 +1,9 @@
 module.exports = function (Vue, methods) {
   // override init and inject vuex init procedure
-  const _init = Vue.prototype._init
-  Vue.prototype._init = function (options = {}) {
+  var _init = Vue.prototype._init
+  Vue.prototype._init = function (options) {
+    var options = options || {}
+
     options.init = options.init
       ? [methodInit].concat(options.init)
       : methodInit
@@ -10,15 +12,17 @@ module.exports = function (Vue, methods) {
   }
 
   function methodInit () {
-    Object.keys(methods).forEach(key => {
-      const methodName = key
-      const method = methods[key]
-      const options = this.$options
+    var self = this
+
+    Object.keys(methods).forEach(function (key) {
+      var methodName = key
+      var method = methods[key]
+      var options = self.$options
 
       if (options.parent && options.parent[methodName]) {
-        this[methodName] = options.parent[methodName]
+        self[methodName] = options.parent[methodName]
       } else {
-        this[key] = method
+        self[key] = method
       }
     })
   }

@@ -1,5 +1,5 @@
-const override = require('./override');
-let Vue
+var override = require('./override')
+var Vue
 
 function install (_Vue, methods) {
   Vue = _Vue
@@ -7,5 +7,5 @@ function install (_Vue, methods) {
 }
 
 module.exports = {
-  install
-}
+  install: install
+};
