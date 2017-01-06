@@ -1,14 +1,21 @@
 module.exports = function (Vue, methods) {
-  // override init and inject vuex init procedure
-  var _init = Vue.prototype._init
-  Vue.prototype._init = function (options) {
-    var options = options || {}
+  var version = Number(Vue.version.split('.')[0])
 
-    options.init = options.init
-      ? [methodInit].concat(options.init)
-      : methodInit
+  if (version >= 2) {
+    var usesInit = Vue.config._lifecycleHooks.indexOf('init') > -1
+    Vue.mixin(usesInit ? { init: vuexInit } : { beforeCreate: vuexInit })
+  } else {
+    // Override init and inject vuex init procedure
+    var _init = Vue.prototype._init
+    Vue.prototype._init = function (options) {
+      var options = options || {}
 
-    _init.call(this, options)
+      options.init = options.init
+        ? [methodInit].concat(options.init)
+        : methodInit
+
+      _init.call(this, options)
+    }
   }
 
   function methodInit () {
