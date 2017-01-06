@@ -3,9 +3,9 @@ module.exports = function (Vue, methods) {
 
   if (version >= 2) {
     var usesInit = Vue.config._lifecycleHooks.indexOf('init') > -1
-    Vue.mixin(usesInit ? { init: vuexInit } : { beforeCreate: vuexInit })
+    Vue.mixin(usesInit ? { init: methodInit } : { beforeCreate: methodInit })
   } else {
-    // Override init and inject vuex init procedure
+    // Override init and inject method init procedure
     var _init = Vue.prototype._init
     Vue.prototype._init = function (options) {
       var options = options || {}
