@@ -1,7 +1,7 @@
 {
   "name": "vue-method-plugin",
   "version": "1.1.0",
-  "description": "Add custom methods to your vue comoents",
+  "description": "Add custom methods to your vue components",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
